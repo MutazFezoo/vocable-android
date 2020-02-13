@@ -12,6 +12,7 @@ import com.willowtree.vocable.customviews.PointerView
 import com.willowtree.vocable.utils.SpokenText
 import com.willowtree.vocable.utils.VocableTextToSpeech
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.presets_layout.*
 
 
 class MainActivity : BaseActivity() {
@@ -20,6 +21,14 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         VocableTextToSpeech.initialize(this)
+        keyboard_button.action = {
+            with(layout_container) {
+                removeAllViews()
+                addView(layoutInflater.inflate(R.layout.keyboard_layout, layout_container, false))
+            }
+            allViews.clear()
+            getAllChildViews(parent_layout)
+        }
     }
 
     override fun onDestroy() {
@@ -30,14 +39,14 @@ class MainActivity : BaseActivity() {
     override fun subscribeToViewModel() {
         super.subscribeToViewModel()
         SpokenText.observe(this, Observer {
-            current_text.text = if (it.isNullOrBlank()) {
+            current_text?.text = if (it.isNullOrBlank()) {
                 getString(R.string.select_something)
             } else {
                 it
             }
         })
         VocableTextToSpeech.isSpeaking.observe(this, Observer {
-            speaker_icon.isVisible = it ?: false
+            speaker_icon?.isVisible = it ?: false
         })
     }
 
