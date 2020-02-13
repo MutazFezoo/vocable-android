@@ -12,6 +12,8 @@ import com.willowtree.vocable.customviews.PointerView
 import com.willowtree.vocable.utils.SpokenText
 import com.willowtree.vocable.utils.VocableTextToSpeech
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.keyboard_action_buttons.*
+import kotlinx.android.synthetic.main.presets_action_buttons.*
 import kotlinx.android.synthetic.main.presets_layout.*
 
 
@@ -21,11 +23,48 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         VocableTextToSpeech.initialize(this)
+        initPresetsActionButtons()
+    }
+
+    private fun initPresetsActionButtons() {
         keyboard_button.action = {
-            with(layout_container) {
+            with(main_container) {
                 removeAllViews()
-                addView(layoutInflater.inflate(R.layout.keyboard_layout, layout_container, false))
+                addView(layoutInflater.inflate(R.layout.keyboard_layout, main_container, false))
             }
+            with(action_button_container) {
+                removeAllViews()
+                addView(
+                    layoutInflater.inflate(
+                        R.layout.keyboard_action_buttons,
+                        main_container,
+                        false
+                    )
+                )
+            }
+            initKeyboardActionButtons()
+            allViews.clear()
+            getAllChildViews(parent_layout)
+        }
+    }
+
+    private fun initKeyboardActionButtons() {
+        presets_button.action = {
+            with(main_container) {
+                removeAllViews()
+                addView(layoutInflater.inflate(R.layout.presets_layout, main_container, false))
+            }
+            with(action_button_container) {
+                removeAllViews()
+                addView(
+                    layoutInflater.inflate(
+                        R.layout.presets_action_buttons,
+                        main_container,
+                        false
+                    )
+                )
+            }
+            initPresetsActionButtons()
             allViews.clear()
             getAllChildViews(parent_layout)
         }

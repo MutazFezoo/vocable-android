@@ -26,24 +26,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.willowtree.vocable.customviews.ActionButton
-        android:id="@+id/keyboard_button"
-        style="@style/TopBarButton"
-        android:layout_marginEnd="@dimen/top_bar_button_margin"
-        android:drawableStart="@drawable/ic_keyboard"
-        app:layout_constraintEnd_toStartOf="@id/repeat_button"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.willowtree.vocable.customviews.ActionButton
-        android:id="@+id/repeat_button"
-        style="@style/TopBarButton"
-        android:drawableStart="@drawable/ic_repeat"
+    <FrameLayout
+        android:id="@+id/action_button_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toEndOf="@id/keyboard_button"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include layout="@layout/presets_action_buttons" />
+
+    </FrameLayout>
 
     <com.willowtree.vocable.customviews.SettingsButton
         android:id="@+id/settings_button"
@@ -54,7 +47,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
-        android:id="@+id/layout_container"
+        android:id="@+id/main_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
